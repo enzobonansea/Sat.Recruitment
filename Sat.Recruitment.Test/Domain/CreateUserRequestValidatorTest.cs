@@ -17,7 +17,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullName()
         {
-            var exception = Record.Exception(() => validator.Execute("", "", "", ""));
+            var exception = Record.Exception(() => validator.Execute(null, null, null, null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == CreateUserRequestValidator.NameIsRequiredErrorMessage));
         }
@@ -25,7 +25,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullEmail()
         { 
-            var exception = Record.Exception(() => validator.Execute("some-name", "", "", ""));
+            var exception = Record.Exception(() => validator.Execute("some-name", null, null, null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == CreateUserRequestValidator.EmailIsRequiredErrorMessage));  
         }
@@ -33,7 +33,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullAddress()
         {   
-            var exception = Record.Exception(() => validator.Execute("some-name", "some-email", "", ""));
+            var exception = Record.Exception(() => validator.Execute("some-name", "some-email", null, null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == CreateUserRequestValidator.AddressIsRequiredErrorMessage));
         }
@@ -41,7 +41,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullPhone()
         {   
-            var exception = Record.Exception(() => validator.Execute("some-name", "some-email", "some-address", ""));
+            var exception = Record.Exception(() => validator.Execute("some-name", "some-email", "some-address", null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == CreateUserRequestValidator.PhoneIsRequiredErrorMessage));
         }
