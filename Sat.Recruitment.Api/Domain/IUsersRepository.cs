@@ -6,5 +6,6 @@ namespace Sat.Recruitment.Api.Domain
     public interface IUsersRepository
     {
         Task<bool> Exists(User aUser);
+        Task Save(User aUser);
     }
 }
