@@ -71,7 +71,8 @@ namespace Sat.Recruitment.Api.Domain
         {
             return this.Email == anotherUser.Email 
                 || this.Phone == anotherUser.Phone
-                || this.Name == anotherUser.Name;
+                || this.Name == anotherUser.Name
+                || this.Address == anotherUser.Address;
         }
     }
 }
