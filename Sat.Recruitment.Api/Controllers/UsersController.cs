@@ -20,10 +20,11 @@ namespace Sat.Recruitment.Api.Controllers
     [Route("[controller]")]
     public partial class UsersController : ControllerBase
     {
+        private readonly IUsersRepository usersRepository;
 
-        private readonly List<User> _users = new List<User>();
-        public UsersController()
+        public UsersController(IUsersRepository usersRepository)
         {
+            this.usersRepository = usersRepository;
         }
 
         [HttpPost]
@@ -42,25 +43,8 @@ namespace Sat.Recruitment.Api.Controllers
                 };
 
             var newUser = new User(name, email, address, phone, userType, decimal.Parse(money));
-
-
-            var reader = ReadUsersFromFile();
-
-            while (reader.Peek() >= 0)
-            {
-                var line = await reader.ReadLineAsync();
-                var user = new User(
-                    name: line.Split(',')[0].ToString(),
-                    email: line.Split(',')[1].ToString(),
-                    phone: line.Split(',')[2].ToString(),
-                    address: line.Split(',')[3].ToString(),
-                    userType: line.Split(',')[4].ToString(),
-                    money: decimal.Parse(line.Split(',')[5].ToString()));
-                _users.Add(user);
-            }
-            reader.Close();
-
-            var isDuplicated = _users.Any(user => newUser.IsDuplicated(user));
+            var allUsers = await this.usersRepository.GetAll();
+            var isDuplicated = allUsers.Any(user => newUser.IsDuplicated(user));
 
             if (!isDuplicated)
             {

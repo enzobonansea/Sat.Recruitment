@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Sat.Recruitment.Api.Domain;
+using Sat.Recruitment.Api.Infrastructure;
+
 namespace Sat.Recruitment.Api
 {
     public class Startup
@@ -27,6 +30,7 @@ namespace Sat.Recruitment.Api
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddScoped<IUsersRepository, UsersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
