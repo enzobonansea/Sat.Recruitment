@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+
 using Sat.Recruitment.Api.Domain;
 
 namespace Sat.Recruitment.Api.Application

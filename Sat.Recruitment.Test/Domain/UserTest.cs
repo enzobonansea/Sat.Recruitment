@@ -1,6 +1,9 @@
 using System;
+
 using Microsoft.AspNetCore.Mvc;
+
 using Sat.Recruitment.Api.Domain;
+
 using Xunit;
 
 namespace Sat.Recruitment.Test.Domain

@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+
 using Xunit;
+
 using Sat.Recruitment.Api.Domain;
 
 namespace Sat.Recruitment.Test
