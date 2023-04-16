@@ -69,7 +69,7 @@ namespace Sat.Recruitment.Api.Domain
 
         public bool IsDuplicated(User anotherUser) 
         {
-            throw new NotImplementedException();
+            return this.Email == anotherUser.Email;
         }
     }
 }
