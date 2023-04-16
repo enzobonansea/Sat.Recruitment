@@ -14,5 +14,10 @@ namespace Sat.Recruitment.Test
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        public static string RandomMail() 
+        {
+            return RandomString(7) + "@gmail.com"; 
+        }
     }
 }
