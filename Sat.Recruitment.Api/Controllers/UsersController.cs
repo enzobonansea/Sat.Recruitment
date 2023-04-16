@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Sat.Recruitment.Api.Domain;
 
@@ -60,13 +61,7 @@ namespace Sat.Recruitment.Api.Controllers
             reader.Close();
             try
             {
-                var isDuplicated = false;
-                foreach (var user in _users)
-                {
-                    if (newUser.IsDuplicated(user)) {
-                        isDuplicated = true;
-                    }
-                }
+                var isDuplicated = _users.Any(user => newUser.IsDuplicated(user));
 
                 if (!isDuplicated)
                 {
