@@ -44,5 +44,37 @@ namespace Sat.Recruitment.Test.Domain
             var isDuplicated = this.user.IsDuplicated(anotherUser);
             Assert.Equal(true, isDuplicated);
         }
+
+        [Fact]
+        public void ItMustHaveName()
+        {
+            var exception = Record.Exception(() => new User(null, "", "", "", "", 0));
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(CreateUserRequestValidator.NameIsRequiredErrorMessage, exception.Message);
+        }
+
+        [Fact]
+        public void ItMustHaveEmail()
+        {
+            var exception = Record.Exception(() => new User("", null, "", "", "", 0));
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(CreateUserRequestValidator.EmailIsRequiredErrorMessage, exception.Message);
+        }
+
+        [Fact]
+        public void ItMustHaveAddress()
+        {
+            var exception = Record.Exception(() => new User("", "", null, "", "", 0));
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(CreateUserRequestValidator.AddressIsRequiredErrorMessage, exception.Message);
+        }
+
+        [Fact]
+        public void ItMustHavePhone()
+        {
+            var exception = Record.Exception(() => new User("", "", "", null, "", 0));
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(CreateUserRequestValidator.PhoneIsRequiredErrorMessage, exception.Message);
+        }
     }
 }
