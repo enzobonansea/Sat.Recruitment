@@ -33,6 +33,7 @@ namespace Sat.Recruitment.Api
             services.AddSwaggerGen();
             services.AddScoped<IUsersRepository, FileUsersRepository>();
             services.AddScoped<CreateUserUseCase>();
+            services.AddScoped<CreateUserRequestValidator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

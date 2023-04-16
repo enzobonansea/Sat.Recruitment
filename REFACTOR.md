@@ -20,3 +20,5 @@
 4. Controller was also highly coupled with the persistence mechanism. I applied a Repository Pattern for hiding the details of how the data is retrieved from the underlying data source. I used Dependency Injection and I inject an interface in order to apply DIP (Dependency inversion principle).
 
 5. The creation logic (i.e. if a user is duplicated, return an error. Otherwise, create it) was isolated in a use case created with TDD.
+
+6. The validation logic (i.e. name, email, address & phone not null) was moved to a new class called CreateUserRequestValidator created with TDD and whose unique responsibility is asserting parameters correctness.
