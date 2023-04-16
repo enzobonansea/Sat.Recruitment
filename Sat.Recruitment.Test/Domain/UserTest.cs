@@ -37,7 +37,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void IsDuplicatedWhenSharesAddress()
         {
-            var anotherUser = new User(Utils.RandomString(4), Utils.RandomMail(), Utils.RandomString(7), this.user.Address, "Normal", decimal.Parse("124"));
+            var anotherUser = new User(Utils.RandomString(4), Utils.RandomMail(), this.user.Address, Utils.RandomString(7), "Normal", decimal.Parse("124"));
             var isDuplicated = this.user.IsDuplicated(anotherUser);
             Assert.Equal(true, isDuplicated);
         }
