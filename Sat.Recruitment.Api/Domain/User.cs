@@ -69,7 +69,9 @@ namespace Sat.Recruitment.Api.Domain
 
         public bool IsDuplicated(User anotherUser) 
         {
-            return this.Email == anotherUser.Email || this.Phone == anotherUser.Phone;
+            return this.Email == anotherUser.Email 
+                || this.Phone == anotherUser.Phone
+                || this.Name == anotherUser.Name;
         }
     }
 }
