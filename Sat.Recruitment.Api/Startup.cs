@@ -30,7 +30,7 @@ namespace Sat.Recruitment.Api
         {
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IUsersRepository, FileUsersRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

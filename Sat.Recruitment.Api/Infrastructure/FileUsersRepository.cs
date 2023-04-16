@@ -8,13 +8,19 @@ using Sat.Recruitment.Api.Domain;
 
 namespace Sat.Recruitment.Api.Infrastructure
 {
-    public class UsersRepository : IUsersRepository
+    public class FileUsersRepository : IUsersRepository
     {
         public async Task<bool> Exists(User aUser)
         {
             var allUsers = await this.GetAll();
 
             return allUsers.Any(anotherUser => aUser.IsDuplicated(anotherUser));
+        }
+
+        public Task Save(User user)
+        {
+            // Add the persistence logic here
+            return Task.CompletedTask;
         }
 
         private async Task<List<User>> GetAll() 
