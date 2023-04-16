@@ -25,5 +25,13 @@ namespace Sat.Recruitment.Test.Domain
             var isDuplicated = this.user.IsDuplicated(anotherUser);
             Assert.Equal(true, isDuplicated);
         }
+
+        [Fact]
+        public void IsDuplicatedWhenSharesName()
+        {
+            var anotherUser = new User(this.user.Name, Utils.RandomMail(), Utils.RandomString(7), Utils.RandomString(7), "Normal", decimal.Parse("124"));
+            var isDuplicated = this.user.IsDuplicated(anotherUser);
+            Assert.Equal(true, isDuplicated);
+        }
     }
 }
