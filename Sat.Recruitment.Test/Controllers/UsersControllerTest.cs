@@ -10,7 +10,7 @@ using Sat.Recruitment.Api.Infrastructure;
 using Xunit;
 
 
-namespace Sat.Recruitment.Test
+namespace Sat.Recruitment.Test.Controllers
 {
     [CollectionDefinition("Tests", DisableParallelization = true)]
     public class UnitTest1
