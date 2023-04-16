@@ -21,7 +21,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void IsDuplicatedWhenSharesPhone()
         {
-            var anotherUser = new User(Utils.RandomString(4), Utils.RandomMail(), "+349 1122354215", Utils.RandomString(10), "Normal", decimal.Parse("124"));
+            var anotherUser = new User(Utils.RandomString(4), Utils.RandomMail(), "Av. Juan G", this.user.Phone, "Normal", decimal.Parse("124"));
             var isDuplicated = this.user.IsDuplicated(anotherUser);
             Assert.Equal(true, isDuplicated);
         }
