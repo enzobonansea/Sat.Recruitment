@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Xunit;
+using Sat.Recruitment.Api.Domain;
 
 namespace Sat.Recruitment.Test
 {
@@ -18,6 +19,11 @@ namespace Sat.Recruitment.Test
         public static string RandomMail() 
         {
             return RandomString(7) + "@gmail.com"; 
+        }
+
+        public static User RandomUser() 
+        {
+            return new User(RandomString(7), RandomMail(), RandomString(7), RandomString(7), "Normal", decimal.Parse("123"));
         }
     }
 }
