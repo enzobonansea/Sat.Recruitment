@@ -66,5 +66,10 @@ namespace Sat.Recruitment.Api.Domain
 
             this.Email = string.Join("@", new string[] { aux[0], aux[1] });
         }
+
+        public bool IsDuplicated(User anotherUser) 
+        {
+            throw new NotImplementedException();
+        }
     }
 }
