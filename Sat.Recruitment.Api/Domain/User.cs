@@ -13,6 +13,11 @@ namespace Sat.Recruitment.Api.Domain
 
         public User(string name, string email, string address, string phone, string userType, decimal money)
         {
+            AssertionConcern.AssertArgumentNotNull(name, CreateUserRequestValidator.NameIsRequiredErrorMessage);
+            AssertionConcern.AssertArgumentNotNull(email, CreateUserRequestValidator.EmailIsRequiredErrorMessage);
+            AssertionConcern.AssertArgumentNotNull(address, CreateUserRequestValidator.AddressIsRequiredErrorMessage);
+            AssertionConcern.AssertArgumentNotNull(phone, CreateUserRequestValidator.PhoneIsRequiredErrorMessage);
+
             this.Name = name;
             this.Email = email;
             this.Address = address;
