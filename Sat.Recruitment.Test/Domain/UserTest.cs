@@ -15,7 +15,7 @@ namespace Sat.Recruitment.Test.Domain
         {
             var anotherUser = new User("Mike", this.user.Email, "Av. Juan G", "+349 1122354215", "Normal", decimal.Parse("124"));
             var isDuplicated = this.user.IsDuplicated(anotherUser);
-            Assert.Equal(false, isDuplicated);
+            Assert.Equal(true, isDuplicated);
         }
     }
 }
