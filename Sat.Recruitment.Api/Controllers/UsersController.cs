@@ -59,34 +59,23 @@ namespace Sat.Recruitment.Api.Controllers
                 _users.Add(user);
             }
             reader.Close();
-            try
+            
+            var isDuplicated = _users.Any(user => newUser.IsDuplicated(user));
+
+            if (!isDuplicated)
             {
-                var isDuplicated = _users.Any(user => newUser.IsDuplicated(user));
+                Debug.WriteLine("User Created");
 
-                if (!isDuplicated)
+                return new Result()
                 {
-                    Debug.WriteLine("User Created");
-
-                    return new Result()
-                    {
-                        IsSuccess = true,
-                        Errors = "User Created"
-                    };
-                }
-                else
-                {
-                    Debug.WriteLine("The user is duplicated");
-
-                    return new Result()
-                    {
-                        IsSuccess = false,
-                        Errors = "The user is duplicated"
-                    };
-                }
+                    IsSuccess = true,
+                    Errors = "User Created"
+                };
             }
-            catch
+            else
             {
                 Debug.WriteLine("The user is duplicated");
+
                 return new Result()
                 {
                     IsSuccess = false,
