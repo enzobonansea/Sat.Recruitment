@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Sat.Recruitment.Api.Domain
 {
@@ -11,7 +12,14 @@ namespace Sat.Recruitment.Api.Domain
 
         public void Execute(string name, string email, string address, string phone)
         {
-            
+            var errors = new List<string>();
+
+            if (name == null) errors.Add(CreateUserRequestValidator.NameIsRequiredErrorMessage);
+            if (email == null) errors.Add(CreateUserRequestValidator.EmailIsRequiredErrorMessage);
+            if (address == null) errors.Add(CreateUserRequestValidator.AddressIsRequiredErrorMessage);
+            if (phone == null) errors.Add(CreateUserRequestValidator.PhoneIsRequiredErrorMessage);
+
+            if (errors.Count > 0) throw new UserValidationException(errors);
         }
     }
 }
