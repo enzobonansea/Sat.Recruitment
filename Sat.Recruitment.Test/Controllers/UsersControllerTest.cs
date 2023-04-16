@@ -13,9 +13,9 @@ using Xunit;
 namespace Sat.Recruitment.Test.Controllers
 {
     [CollectionDefinition("Tests", DisableParallelization = true)]
-    public class UnitTest1
+    public class UsersControllerTest
     {
-        private readonly UsersController userController = new UsersController(new UsersRepository());
+        private readonly UsersController userController = new UsersController(new FileUsersRepository());
 
         [Fact]
         public async Task Test1()
