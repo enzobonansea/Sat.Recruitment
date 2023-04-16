@@ -63,20 +63,8 @@ namespace Sat.Recruitment.Api.Controllers
                 var isDuplicated = false;
                 foreach (var user in _users)
                 {
-                    if (user.Email == newUser.Email
-                        ||
-                        user.Phone == newUser.Phone)
-                    {
+                    if (newUser.IsDuplicated(user)) {
                         isDuplicated = true;
-                    }
-                    else if (user.Name == newUser.Name)
-                    {
-                        if (user.Address == newUser.Address)
-                        {
-                            isDuplicated = true;
-                            throw new Exception("User is duplicated");
-                        }
-
                     }
                 }
 
