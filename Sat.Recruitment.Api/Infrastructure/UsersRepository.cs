@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,7 +10,14 @@ namespace Sat.Recruitment.Api.Infrastructure
 {
     public class UsersRepository : IUsersRepository
     {
-        public async Task<List<User>> GetAll() 
+        public async Task<bool> Exists(User aUser)
+        {
+            var allUsers = await this.GetAll();
+
+            return allUsers.Any(anotherUser => aUser.IsDuplicated(anotherUser));
+        }
+
+        private async Task<List<User>> GetAll() 
         {
             var users = new List<User>();
 

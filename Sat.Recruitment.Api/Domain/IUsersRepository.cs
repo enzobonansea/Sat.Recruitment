@@ -5,6 +5,6 @@ namespace Sat.Recruitment.Api.Domain
 {
     public interface IUsersRepository
     {
-        Task<List<User>> GetAll();
+        Task<bool> Exists(User aUser);
     }
 }

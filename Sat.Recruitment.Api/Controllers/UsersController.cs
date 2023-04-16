@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Sat.Recruitment.Api.Domain;
 
@@ -43,8 +42,7 @@ namespace Sat.Recruitment.Api.Controllers
                 };
 
             var newUser = new User(name, email, address, phone, userType, decimal.Parse(money));
-            var allUsers = await this.usersRepository.GetAll();
-            var isDuplicated = allUsers.Any(user => newUser.IsDuplicated(user));
+            var isDuplicated = await this.usersRepository.Exists(newUser);
 
             if (!isDuplicated)
             {
