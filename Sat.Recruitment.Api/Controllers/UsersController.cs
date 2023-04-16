@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
 using Sat.Recruitment.Api.Domain;
+using Sat.Recruitment.Api.Application;
 
 namespace Sat.Recruitment.Api.Controllers
 {
@@ -19,11 +21,11 @@ namespace Sat.Recruitment.Api.Controllers
     [Route("[controller]")]
     public partial class UsersController : ControllerBase
     {
-        private readonly IUsersRepository usersRepository;
+        private readonly CreateUserUseCase createUserUseCase;
 
-        public UsersController(IUsersRepository usersRepository)
+        public UsersController(CreateUserUseCase createUserUseCase)
         {
-            this.usersRepository = usersRepository;
+            this.createUserUseCase = createUserUseCase;
         }
 
         [HttpPost]
@@ -41,12 +43,9 @@ namespace Sat.Recruitment.Api.Controllers
                     Errors = errors
                 };
 
-            var newUser = new User(name, email, address, phone, userType, decimal.Parse(money));
-            var isDuplicated = await this.usersRepository.Exists(newUser);
-
-            if (!isDuplicated)
+            try
             {
-                Debug.WriteLine("User Created");
+                await this.createUserUseCase.Execute(new User(name, email, address, phone, userType, decimal.Parse(money)));
 
                 return new Result()
                 {
@@ -54,10 +53,8 @@ namespace Sat.Recruitment.Api.Controllers
                     Errors = "User Created"
                 };
             }
-            else
+            catch (UserDuplicatedException)
             {
-                Debug.WriteLine("The user is duplicated");
-
                 return new Result()
                 {
                     IsSuccess = false,

@@ -15,9 +15,14 @@ namespace Sat.Recruitment.Api.Application
 
         public async Task Execute(User user) 
         {
-            if (await this.usersRepository.Exists(user)) throw new UserDuplicatedException();
+            if (await this.usersRepository.Exists(user)) 
+            {
+                Debug.WriteLine("The user is duplicated");
+                throw new UserDuplicatedException();
+            }
             
             await this.usersRepository.Save(user);
+            Debug.WriteLine("User Created");
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
 
+using Sat.Recruitment.Api.Application;
 using Sat.Recruitment.Api.Controllers;
 using Sat.Recruitment.Api.Infrastructure;
 
@@ -15,7 +16,7 @@ namespace Sat.Recruitment.Test.Controllers
     [CollectionDefinition("Tests", DisableParallelization = true)]
     public class UsersControllerTest
     {
-        private readonly UsersController userController = new UsersController(new FileUsersRepository());
+        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository()));
 
         [Fact]
         public async Task Test1()
