@@ -59,7 +59,7 @@ namespace Sat.Recruitment.Api.Controllers
                 _users.Add(user);
             }
             reader.Close();
-            
+
             var isDuplicated = _users.Any(user => newUser.IsDuplicated(user));
 
             if (!isDuplicated)
@@ -82,12 +82,6 @@ namespace Sat.Recruitment.Api.Controllers
                     Errors = "The user is duplicated"
                 };
             }
-
-            return new Result()
-            {
-                IsSuccess = true,
-                Errors = "User Created"
-            };
         }
 
         //Validate errors
