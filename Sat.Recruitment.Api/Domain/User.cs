@@ -1,15 +1,19 @@
 using System;
 
+using Sat.Recruitment.Api.Domain.UserTypes;
+
 namespace Sat.Recruitment.Api.Domain
 {
     public class User
     {
+        private readonly decimal money;
+
         public string Name { get; private set; }
         public string Email { get; private set; }
         public string Address { get; private set; }
         public string Phone { get; private set; }
-        public string UserType { get; private set; }
-        public decimal Money { get; private set; }
+        public UserType UserType { get; private set; }
+        public decimal Money { get => this.UserType.GetMoney(this.money); }
 
         public User(string name, string email, string address, string phone, string userType, decimal money)
         {
@@ -22,45 +26,8 @@ namespace Sat.Recruitment.Api.Domain
             this.Email = email;
             this.Address = address;
             this.Phone = phone;
-            this.UserType = userType;
-            this.Money = money;
-
-            if (this.UserType == "Normal")
-            {
-                if (money > 100)
-                {
-                    var percentage = Convert.ToDecimal(0.12);
-                    //If new user is normal and has more than USD100
-                    var gif = money * percentage;
-                    this.Money = this.Money + gif;
-                }
-                if (money < 100)
-                {
-                    if (money > 10)
-                    {
-                        var percentage = Convert.ToDecimal(0.8);
-                        var gif = money * percentage;
-                        this.Money = this.Money + gif;
-                    }
-                }
-            }
-            if (this.UserType == "SuperUser")
-            {
-                if (money > 100)
-                {
-                    var percentage = Convert.ToDecimal(0.20);
-                    var gif = money * percentage;
-                    this.Money = this.Money + gif;
-                }
-            }
-            if (this.UserType == "Premium")
-            {
-                if (money > 100)
-                {
-                    var gif = money * 2;
-                    this.Money = this.Money + gif;
-                }
-            }
+            this.UserType = UserTypeFactory.Create(userType);
+            this.money = money;
 
             //Normalize email
             var aux = this.Email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
