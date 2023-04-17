@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Sat.Recruitment.Api.Domain;
+using Sat.Recruitment.Api.Application;
 
 namespace Sat.Recruitment.Api.Infrastructure
 {
