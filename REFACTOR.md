@@ -48,3 +48,7 @@ Assert.Equal("something@gmail.com", email.Normalize());
 ```
 
 showed me that there was a bug because the old email normalization logic converts 'some.thing+123@gmail.com' into 'something+@gmail.com' because it uses `atIndex` after doing `string.Replace(".", "")` and this method call changes the string length making `atIndex` invalid. Now, the new logic ignores everything after '+' symbol and **then** replaces "." with "".
+
+## Notes
+
+I would prefer to send the creation request payload through the body, but I still using query parameters because it is a production system that is currently working and I can't break the API to my clients.
