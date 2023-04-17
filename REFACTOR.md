@@ -30,3 +30,5 @@
 9. I'll make a polymorphic hierarchy of `UserType`
 
 10. I'll use a polymorphic method call to `UserType.GetMoney` on `UserType.Money` property getter
+
+11. Create an Email object with all the normalization logic
