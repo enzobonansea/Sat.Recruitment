@@ -22,7 +22,7 @@ namespace Sat.Recruitment.Test.Domain
         }
 
         [Fact]
-        public void ItMustHave8PercentGiftIfHasLessThanUSD100()
+        public void ItMustHave8PercentGiftIfHasLessThanUSD100AndMoreThanUSD10()
         {
             var baseMoney =(decimal)99;
             var userType = new Normal();
@@ -30,10 +30,13 @@ namespace Sat.Recruitment.Test.Domain
         }
 
         [Fact]
-        public void ItMustHaveNotGiftIfHasExactlyUSD100()
+        public void ItMustHaveNotGiftIfHasExactlyUSD100OrLessThan10USD()
         {
             var baseMoney =(decimal)100;
             var userType = new Normal();
+            Assert.Equal(true, baseMoney == userType.GetMoney(baseMoney));
+
+            baseMoney =(decimal)9;
             Assert.Equal(true, baseMoney == userType.GetMoney(baseMoney));
         }
     }
