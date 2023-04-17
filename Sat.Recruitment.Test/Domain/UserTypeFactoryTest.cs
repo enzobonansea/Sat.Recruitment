@@ -17,8 +17,8 @@ namespace Sat.Recruitment.Test.Domain
         public void ItMustReturnACorrectInstanceBasedOnType()
         {
             Assert.IsType<Normal>(UserTypeFactory.Create("Normal"));
-            Assert.IsType<Normal>(UserTypeFactory.Create("Premium"));
-            Assert.IsType<Normal>(UserTypeFactory.Create("SuperUser"));
+            Assert.IsType<Premium>(UserTypeFactory.Create("Premium"));
+            Assert.IsType<SuperUser>(UserTypeFactory.Create("SuperUser"));
         }
     }
 }
