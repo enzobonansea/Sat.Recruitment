@@ -8,6 +8,8 @@ namespace Sat.Recruitment.Api.Domain
 {
     public static class UserTypeFactory 
     {
+        public const string TypeIsInvalidErrorMessage = "The provided type is invalid";
+
         public static UserType Create(string aType)
         {
             var objectType = Assembly

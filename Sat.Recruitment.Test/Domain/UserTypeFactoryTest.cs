@@ -20,5 +20,13 @@ namespace Sat.Recruitment.Test.Domain
             Assert.IsType<Premium>(UserTypeFactory.Create("Premium"));
             Assert.IsType<SuperUser>(UserTypeFactory.Create("SuperUser"));
         }
+
+        [Fact]
+        public void ItMustThrowOnInvalidType()
+        {
+            var exception = Record.Exception(() => UserTypeFactory.Create("invalid-type"));
+            Assert.IsType<InvalidOperationException>(exception);
+            Assert.Equal(UserTypeFactory.TypeIsInvalidErrorMessage, exception.Message);
+        }
     }
 }
