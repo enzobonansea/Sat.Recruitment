@@ -10,9 +10,9 @@ namespace Sat.Recruitment.Api.Application
     public class CreateUserUseCase
     {
         private readonly IUsersRepository usersRepository;
-        private readonly ILogger logger;
+        private readonly ILogger<CreateUserUseCase> logger;
 
-        public CreateUserUseCase(IUsersRepository usersRepository, ILogger logger)
+        public CreateUserUseCase(IUsersRepository usersRepository, ILogger<CreateUserUseCase> logger)
         {
             this.usersRepository = usersRepository;
             this.logger = logger;
