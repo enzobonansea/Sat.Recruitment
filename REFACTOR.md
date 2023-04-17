@@ -26,3 +26,5 @@
 7. Test cases added to UserControllerTests for covering all request/response scenarios
 
 8. Assertions concerns was added to user's parameters
+
+9. I'll make a polymorphic hierarchy of `UserType`
