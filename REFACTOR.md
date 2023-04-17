@@ -32,3 +32,12 @@
 10. I'll use a polymorphic method call to `UserType.GetMoney` on `UserType.Money` property getter
 
 11. Create an Email object with all the normalization logic
+
+- The following assertion
+
+```
+email = new Email("some.thing+123@gmail.com");
+Assert.Equal("something@gmail.com", email.Normalize());
+```
+
+shows me that there was a bug because the old email normalization logic converts 'some.thing+123@gmail.com' into 'something+@gmail.com' because it uses 'atIndex' after doing `string.Replace(".", "")` and this method call changes the string length making the 'atIndex' invalid. Now, the new logic ignores everything after '+' symbol and THEN replaces "." with "".
