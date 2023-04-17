@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
 
 using Sat.Recruitment.Api.Domain;
 using Sat.Recruitment.Api.Application;
@@ -19,7 +20,7 @@ namespace Sat.Recruitment.Test.Application
         [Fact]
         public async Task ItShouldCreateUserIfNotExists()
         {
-            var useCase = new CreateUserUseCase(new UserNotExistsRepository());
+            var useCase = new CreateUserUseCase(new UserNotExistsRepository(), NullLogger<CreateUserUseCase>.Instance);
             var exception = await Record.ExceptionAsync(() => useCase.ExecuteAsync(Utils.RandomUser()));
             Assert.Null(exception);
         }
@@ -27,7 +28,7 @@ namespace Sat.Recruitment.Test.Application
         [Fact]
         public async Task ItShouldNotCreateUserIfExists()
         {
-            var useCase = new CreateUserUseCase(new UserExistsRepository());
+            var useCase = new CreateUserUseCase(new UserExistsRepository(), NullLogger<CreateUserUseCase>.Instance);
             var exception = await Record.ExceptionAsync(() => useCase.ExecuteAsync(Utils.RandomUser()));
             Assert.IsType<UserDuplicatedException>(exception);
         }

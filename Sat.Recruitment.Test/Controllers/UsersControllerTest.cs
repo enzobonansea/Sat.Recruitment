@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging.Abstractions;
 
 using Sat.Recruitment.Api.Domain;
 using Sat.Recruitment.Api.Application;
@@ -17,7 +18,7 @@ namespace Sat.Recruitment.Test.Controllers
     [CollectionDefinition("Tests", DisableParallelization = true)]
     public class UsersControllerTest
     {
-        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository()), new CreateUserRequestValidator());
+        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository(), NullLogger<CreateUserUseCase>.Instance), new CreateUserRequestValidator());
 
         [Fact]
         public async Task ItMustCreateANewUser()

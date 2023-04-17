@@ -1,6 +1,7 @@
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Logging;
 
 using Sat.Recruitment.Api.Domain;
 
@@ -9,22 +10,24 @@ namespace Sat.Recruitment.Api.Application
     public class CreateUserUseCase
     {
         private readonly IUsersRepository usersRepository;
+        private readonly ILogger logger;
 
-        public CreateUserUseCase(IUsersRepository usersRepository)
+        public CreateUserUseCase(IUsersRepository usersRepository, ILogger logger)
         {
             this.usersRepository = usersRepository;
+            this.logger = logger;
         }
 
         public async Task ExecuteAsync(User user) 
         {
             if (await this.usersRepository.ExistsAsync(user)) 
             {
-                Debug.WriteLine("The user is duplicated");
+                this.logger.LogInformation("The user is duplicated");
                 throw new UserDuplicatedException();
             }
             
             await this.usersRepository.SaveAsync(user);
-            Debug.WriteLine("User Created");
+            this.logger.LogInformation("User Created");
         }
     }
 }
