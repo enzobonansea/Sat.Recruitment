@@ -17,7 +17,9 @@ namespace Sat.Recruitment.Api.Domain
                 .GetTypes()
                 .FirstOrDefault(type => type.Name == aType);
             
-            return objectType is null ? null : (UserType)Activator.CreateInstance(objectType);
+            if (objectType is null) throw new InvalidOperationException(UserTypeFactory.TypeIsInvalidErrorMessage);
+            
+            return (UserType)Activator.CreateInstance(objectType);
         }
     }
 }
