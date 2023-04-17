@@ -6,7 +6,9 @@ namespace Sat.Recruitment.Api.Domain.UserTypes
     {
         public override decimal GetMoney(decimal baseMoney)
         {
-            return baseMoney;
+            return baseMoney > 100 
+                ? baseMoney + (baseMoney * Convert.ToDecimal(0.20))
+                : baseMoney;
         }
     }
 }
