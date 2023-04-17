@@ -7,9 +7,10 @@ namespace Sat.Recruitment.Api.Domain
     public class User
     {
         private readonly decimal money;
+        private readonly Email email;
 
         public string Name { get; private set; }
-        public string Email { get; private set; }
+        public string Email { get => this.email.Normalize(); }
         public string Address { get; private set; }
         public string Phone { get; private set; }
         public UserType UserType { get; private set; }
@@ -23,20 +24,11 @@ namespace Sat.Recruitment.Api.Domain
             AssertionConcern.AssertArgumentNotNull(phone, CreateUserRequestValidator.PhoneIsRequiredErrorMessage);
 
             this.Name = name;
-            this.Email = email;
             this.Address = address;
             this.Phone = phone;
             this.UserType = UserTypeFactory.Create(userType);
             this.money = money;
-
-            //Normalize email
-            var aux = this.Email.Split(new char[] { '@' }, StringSplitOptions.RemoveEmptyEntries);
-
-            var atIndex = aux[0].IndexOf("+", StringComparison.Ordinal);
-
-            aux[0] = atIndex < 0 ? aux[0].Replace(".", "") : aux[0].Replace(".", "").Remove(atIndex);
-
-            this.Email = string.Join("@", new string[] { aux[0], aux[1] });
+            this.email = new Email(email);
         }
 
         public bool IsDuplicated(User anotherUser) 
