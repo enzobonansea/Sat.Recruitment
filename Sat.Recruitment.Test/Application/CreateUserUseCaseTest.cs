@@ -20,7 +20,7 @@ namespace Sat.Recruitment.Test.Application
         public async Task ItShouldCreateUserIfNotExists()
         {
             var useCase = new CreateUserUseCase(new UserNotExistsRepository());
-            var exception = await Record.ExceptionAsync(() => useCase.Execute(Utils.RandomUser()));
+            var exception = await Record.ExceptionAsync(() => useCase.ExecuteAsync(Utils.RandomUser()));
             Assert.Null(exception);
         }
 
@@ -28,19 +28,19 @@ namespace Sat.Recruitment.Test.Application
         public async Task ItShouldNotCreateUserIfExists()
         {
             var useCase = new CreateUserUseCase(new UserExistsRepository());
-            var exception = await Record.ExceptionAsync(() => useCase.Execute(Utils.RandomUser()));
+            var exception = await Record.ExceptionAsync(() => useCase.ExecuteAsync(Utils.RandomUser()));
             Assert.IsType<UserDuplicatedException>(exception);
         }
     }
 
     class UserExistsRepository : IUsersRepository 
     {
-        public Task<bool> Exists(User user) 
+        public Task<bool> ExistsAsync(User user) 
         {
             return Task.FromResult(true);
         }
 
-        public Task Save(User user) 
+        public Task SaveAsync(User user) 
         {
             return Task.CompletedTask;
         }
@@ -48,12 +48,12 @@ namespace Sat.Recruitment.Test.Application
 
     class UserNotExistsRepository : IUsersRepository 
     {
-        public Task<bool> Exists(User user) 
+        public Task<bool> ExistsAsync(User user) 
         {
             return Task.FromResult(false);
         }
 
-        public Task Save(User user) 
+        public Task SaveAsync(User user) 
         {
             return Task.CompletedTask;
         }

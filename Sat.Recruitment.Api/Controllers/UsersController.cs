@@ -32,13 +32,13 @@ namespace Sat.Recruitment.Api.Controllers
 
         [HttpPost]
         [Route("/create-user")]
-        public async Task<Result> CreateUser(string name, string email, string address, string phone, string userType, string money)
+        public async Task<Result> CreateUserAsync(string name, string email, string address, string phone, string userType, string money)
         {
             try
             {
                 createUserRequestValidator.Execute(name, email, address, phone);
 
-                await this.createUserUseCase.Execute(new User(name, email, address, phone, userType, decimal.Parse(money)));
+                await this.createUserUseCase.ExecuteAsync(new User(name, email, address, phone, userType, decimal.Parse(money)));
 
                 return new Result()
                 {

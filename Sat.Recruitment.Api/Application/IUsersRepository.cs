@@ -7,7 +7,7 @@ namespace Sat.Recruitment.Api.Application
 {
     public interface IUsersRepository
     {
-        Task<bool> Exists(User aUser);
-        Task Save(User aUser);
+        Task<bool> ExistsAsync(User aUser);
+        Task SaveAsync(User aUser);
     }
 }

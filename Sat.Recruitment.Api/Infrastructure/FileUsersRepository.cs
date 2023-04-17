@@ -11,20 +11,20 @@ namespace Sat.Recruitment.Api.Infrastructure
 {
     public class FileUsersRepository : IUsersRepository
     {
-        public async Task<bool> Exists(User aUser)
+        public async Task<bool> ExistsAsync(User aUser)
         {
-            var allUsers = await this.GetAll();
+            var allUsers = await this.GetAllAsync();
 
             return allUsers.Any(anotherUser => aUser.IsDuplicated(anotherUser));
         }
 
-        public Task Save(User user)
+        public Task SaveAsync(User user)
         {
             // Add the persistence logic here
             return Task.CompletedTask;
         }
 
-        private async Task<List<User>> GetAll() 
+        private async Task<List<User>> GetAllAsync() 
         {
             var users = new List<User>();
 
