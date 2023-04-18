@@ -11,7 +11,9 @@
 
 Note that Domain is the central layer, meaning that all the others depend on it, allowing a Domain-Driven Design.
 
-## Steps
+## Non-breaking changes
+
+The following changes are non-breaking, meaning that will not affect API's clients.
 
 1. `User` class definition and usage had a lot of things to improve:
 
@@ -49,6 +51,9 @@ Assert.Equal("something@gmail.com", email.Normalize());
 
 showed me that there was a bug because the old email normalization logic converts 'some.thing+123@gmail.com' into 'something+@gmail.com' because it uses `atIndex` after doing `string.Replace(".", "")` and this method call changes the string length making `atIndex` invalid. Now, the new logic ignores everything after '+' symbol and **then** replaces "." with "".
 
-## Notes
+## Breaking changes
 
-I would prefer to send the creation request payload through the body, but I still using query parameters because it is a production system that is currently working and I can't break the API to my clients.
+The following changes are breaking meaning that our clients need to change their integration with the API. The changes are necessary because the API does not comply with REST because `/create-user` does not provide a meaningful response status code: it always returns a '200 OK' no matter what happened during the creation, and the right way is returning '201 Created' if the user is created or '400 Bad Request' if there was a problem with the user input data.
+Since the system is in production, we cannot introduce breaking changes without coordinating with our clients. That's why I will use feature flags to introduce breaking changes.
+Feature flags are a powerful tool that allows decoupling deployment and release since we can deploy the newest code without activating it, so only when the feature flag is activated is the new code work. Until then, the old code is running.
+The idea is: keep the old code and reference to it with a feature flag in off, develop the new feature (in this case improve API responses) and reference to it with the feature flag in on, deploy changes, coordinate with clients the breaking change and when all clients are ready, turn on the feature flag. Then, delete the old code and the feature flag keeping only the new code without the feature flag since it is unnecessary.
