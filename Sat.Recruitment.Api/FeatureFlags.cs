@@ -1,6 +1,6 @@
 namespace Sat.Recruitment.Api
 {
-    public static class MyFeatureFlags
+    public static class FeatureFlags
     {
         public const string ComplyWithRest = "ComplyWithRest";
     }
