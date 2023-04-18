@@ -60,8 +60,9 @@ namespace Sat.Recruitment.Api.Controllers
         {
             if (await featureManager.IsEnabledAsync(FeatureFlags.ComplyWithRest))
             {
-                // Return 201 Created
-                throw new NotImplementedException();
+                var location = "";        // empty because there isn't a GET endpoint for users
+                var userCreated = new {}; // empty because there isn't a requirement about the response payload 
+                return new CreatedResult(location, userCreated);
             }
             else
             {
@@ -77,8 +78,10 @@ namespace Sat.Recruitment.Api.Controllers
         {
             if (await featureManager.IsEnabledAsync(FeatureFlags.ComplyWithRest))
             {
-                // Return 400 BadRequest
-                throw new NotImplementedException();
+                return BadRequest(new 
+                {
+                    Errors = errors
+                });
             }
             else
             {
