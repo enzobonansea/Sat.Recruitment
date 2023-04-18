@@ -30,7 +30,7 @@ The following changes are non-breaking, meaning that will not affect API's clien
 
 5. The creation logic (i.e. if a user is duplicated, return an error. Otherwise, create it) was isolated in a use case created with TDD.
 
-6. The validation logic (i.e. name, email, address & phone not null) was moved to a new class called CreateUserRequestValidator created with TDD and whose unique responsibility is asserting parameters correctness.
+6. The validation logic (i.e. name, email, address & phone not null) was moved to a new class called UserValidator created with TDD and whose unique responsibility is asserting parameters correctness.
 
 7. Test cases added to `UserControllerTests` for covering all request/response scenarios.
 

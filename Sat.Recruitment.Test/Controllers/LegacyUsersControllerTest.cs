@@ -38,7 +38,7 @@ namespace Sat.Recruitment.Test.Controllers
     [CollectionDefinition("Tests", DisableParallelization = true)]
     public class LegacyUsersControllerTest
     {
-        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository(), NullLogger<CreateUserUseCase>.Instance), new CreateUserRequestValidator(), new LegacyBehaviorFeatureManager());
+        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository(), NullLogger<CreateUserUseCase>.Instance), new LegacyBehaviorFeatureManager());
 
         [Fact]
         public async Task ItMustCreateANewUser()
@@ -64,7 +64,7 @@ namespace Sat.Recruitment.Test.Controllers
             var result = (Result)await userController.CreateUserAsync(null, Utils.RandomMail(), Utils.RandomString(7), Utils.RandomString(7), "Normal", "124");
 
             Assert.Equal(false, result.IsSuccess);
-            Assert.Equal(true, result.Errors.Contains(CreateUserRequestValidator.NameIsRequiredErrorMessage));
+            Assert.Equal(true, result.Errors.Contains(UserValidator.NameIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace Sat.Recruitment.Test.Controllers
             var result = (Result)await userController.CreateUserAsync(Utils.RandomString(7), null, Utils.RandomString(7), Utils.RandomString(7), "Normal", "124");
 
             Assert.Equal(false, result.IsSuccess);
-            Assert.Equal(true, result.Errors.Contains(CreateUserRequestValidator.EmailIsRequiredErrorMessage));
+            Assert.Equal(true, result.Errors.Contains(UserValidator.EmailIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -82,7 +82,7 @@ namespace Sat.Recruitment.Test.Controllers
             var result = (Result)await userController.CreateUserAsync(Utils.RandomString(7), Utils.RandomMail(), null, Utils.RandomString(7), "Normal", "124");
 
             Assert.Equal(false, result.IsSuccess);
-            Assert.Equal(true, result.Errors.Contains(CreateUserRequestValidator.AddressIsRequiredErrorMessage));
+            Assert.Equal(true, result.Errors.Contains(UserValidator.AddressIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -91,7 +91,7 @@ namespace Sat.Recruitment.Test.Controllers
             var result = (Result)await userController.CreateUserAsync(Utils.RandomString(7), Utils.RandomMail(), Utils.RandomString(7), null, "Normal", "124");
 
             Assert.Equal(false, result.IsSuccess);
-            Assert.Equal(true, result.Errors.Contains(CreateUserRequestValidator.PhoneIsRequiredErrorMessage));
+            Assert.Equal(true, result.Errors.Contains(UserValidator.PhoneIsRequiredErrorMessage));
         }
     }
 }

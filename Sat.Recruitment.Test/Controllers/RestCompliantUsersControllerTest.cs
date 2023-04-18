@@ -37,7 +37,7 @@ namespace Sat.Recruitment.Test.Controllers
     [CollectionDefinition("Tests", DisableParallelization = true)]
     public class RestCompliantUsersControllerTest
     {
-        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository(), NullLogger<CreateUserUseCase>.Instance), new CreateUserRequestValidator(), new RestCompliantBehaviorFeatureManager());
+        private readonly UsersController userController = new UsersController(new CreateUserUseCase(new FileUsersRepository(), NullLogger<CreateUserUseCase>.Instance), new RestCompliantBehaviorFeatureManager());
 
         [Fact]
         public async Task ItMustCreateANewUser()
@@ -59,7 +59,7 @@ namespace Sat.Recruitment.Test.Controllers
         {
             var result = (ObjectResult)await userController.CreateUserAsync(null, Utils.RandomMail(), Utils.RandomString(7), Utils.RandomString(7), "Normal", "124");
             Assert.Equal(result.StatusCode, 400);
-            Assert.Equal(true, this.ReadErrors(result).Contains(CreateUserRequestValidator.NameIsRequiredErrorMessage));
+            Assert.Equal(true, this.ReadErrors(result).Contains(UserValidator.NameIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace Sat.Recruitment.Test.Controllers
         {
             var result = (ObjectResult)await userController.CreateUserAsync(Utils.RandomString(7), null, Utils.RandomString(7), Utils.RandomString(7), "Normal", "124");
             Assert.Equal(result.StatusCode, 400);
-            Assert.Equal(true, this.ReadErrors(result).Contains(CreateUserRequestValidator.EmailIsRequiredErrorMessage));
+            Assert.Equal(true, this.ReadErrors(result).Contains(UserValidator.EmailIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace Sat.Recruitment.Test.Controllers
         {
             var result = (ObjectResult)await userController.CreateUserAsync(Utils.RandomString(7), Utils.RandomMail(), null, Utils.RandomString(7), "Normal", "124");
             Assert.Equal(result.StatusCode, 400);
-            Assert.Equal(true,this.ReadErrors(result).Contains(CreateUserRequestValidator.AddressIsRequiredErrorMessage));
+            Assert.Equal(true,this.ReadErrors(result).Contains(UserValidator.AddressIsRequiredErrorMessage));
         }
 
         [Fact]
@@ -83,7 +83,7 @@ namespace Sat.Recruitment.Test.Controllers
         {
             var result = (ObjectResult)await userController.CreateUserAsync(Utils.RandomString(7), Utils.RandomMail(), Utils.RandomString(7), null, "Normal", "124");
             Assert.Equal(result.StatusCode, 400);
-            Assert.Equal(true, this.ReadErrors(result).Contains(CreateUserRequestValidator.PhoneIsRequiredErrorMessage));
+            Assert.Equal(true, this.ReadErrors(result).Contains(UserValidator.PhoneIsRequiredErrorMessage));
         }
 
         private string ReadErrors(ObjectResult result)

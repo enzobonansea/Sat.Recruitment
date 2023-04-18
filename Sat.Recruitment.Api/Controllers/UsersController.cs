@@ -23,14 +23,12 @@ namespace Sat.Recruitment.Api.Controllers
     [Route("[controller]")]
     public partial class UsersController : ControllerBase
     {
-        private readonly CreateUserRequestValidator createUserRequestValidator;
         private readonly CreateUserUseCase createUserUseCase;
         private readonly IFeatureManager featureManager;
 
-        public UsersController(CreateUserUseCase createUserUseCase, CreateUserRequestValidator createUserRequestValidator, IFeatureManager featureManager)
+        public UsersController(CreateUserUseCase createUserUseCase, IFeatureManager featureManager)
         {
             this.createUserUseCase = createUserUseCase;
-            this.createUserRequestValidator = createUserRequestValidator;
             this.featureManager = featureManager;
         }
 
@@ -40,8 +38,6 @@ namespace Sat.Recruitment.Api.Controllers
         {
             try
             {
-                createUserRequestValidator.Execute(name, email, address, phone);
-
                 await this.createUserUseCase.ExecuteAsync(new User(name, email, address, phone, userType, decimal.Parse(money)));
 
                 return await this.UserCreated();

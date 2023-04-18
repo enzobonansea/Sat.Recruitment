@@ -17,11 +17,8 @@ namespace Sat.Recruitment.Api.Domain
         public decimal Money { get => this.UserType.GetMoney(this.money); }
 
         public User(string name, string email, string address, string phone, string userType, decimal money)
-        {
-            AssertionConcern.AssertArgumentNotNull(name, CreateUserRequestValidator.NameIsRequiredErrorMessage);
-            AssertionConcern.AssertArgumentNotNull(email, CreateUserRequestValidator.EmailIsRequiredErrorMessage);
-            AssertionConcern.AssertArgumentNotNull(address, CreateUserRequestValidator.AddressIsRequiredErrorMessage);
-            AssertionConcern.AssertArgumentNotNull(phone, CreateUserRequestValidator.PhoneIsRequiredErrorMessage);
+        { 
+            UserValidator.Execute(name, email, address, phone);
 
             this.Name = name;
             this.Address = address;

@@ -34,7 +34,6 @@ namespace Sat.Recruitment.Api
             services.AddSwaggerGen();
             services.AddScoped<IUsersRepository, FileUsersRepository>();
             services.AddScoped<CreateUserUseCase>();
-            services.AddScoped<CreateUserRequestValidator>();
             services.AddLogging();
             services.AddFeatureManagement();
         }
