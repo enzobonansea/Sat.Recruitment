@@ -15,9 +15,9 @@ namespace Sat.Recruitment.Api.Infrastructure
 
         public FileUsersRepository()
         {
-            this.filePath = Directory.GetCurrentDirectory() + "/Files/Users.txt";
+            this.filePath = Path.Join(Directory.GetCurrentDirectory(), "Files", "Users.txt");
         }
-
+        
         public async Task<bool> ExistsAsync(User aUser)
         {
             var allUsers = await this.GetAllAsync();

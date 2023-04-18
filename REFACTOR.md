@@ -53,6 +53,8 @@ showed me that there was a bug because the old email normalization logic convert
 
 12. Streams are disposed now
 
+13. `Directory.GetCurrentDirectory() + "/Files/Users.txt";` works only on some operating systems. Now I'm using Path.Join to make the system multi-platform
+
 ## Breaking changes
 
 There are some breaking changes, meaning that our clients need to change their integration with the API. The changes are necessary because the API does not comply with REST because `/create-user` does not provide a meaningful response status code: it always returns a '200 OK' no matter what happened during the creation, and the right way is returning '201 Created' if the user is created or '400 Bad Request' if there was a problem with the user input data.
