@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.FeatureManagement;
 
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace Sat.Recruitment.Api
             services.AddScoped<CreateUserUseCase>();
             services.AddScoped<CreateUserRequestValidator>();
             services.AddLogging();
+            services.AddFeatureManagement();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
