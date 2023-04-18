@@ -31,7 +31,7 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullAddress()
         {   
-            var exception = Record.Exception(() => UserValidator.Execute("some-name", "some-email", null, null));
+            var exception = Record.Exception(() => UserValidator.Execute("some-name", "some-email@gmail.com", null, null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == UserValidator.AddressIsRequiredErrorMessage));
         }
@@ -39,9 +39,17 @@ namespace Sat.Recruitment.Test.Domain
         [Fact]
         public void ItMustValidateNonNullPhone()
         {   
-            var exception = Record.Exception(() => UserValidator.Execute("some-name", "some-email", "some-address", null));
+            var exception = Record.Exception(() => UserValidator.Execute("some-name", "some-email@gmail.com", "some-address", null));
             Assert.IsType<UserValidationException>(exception);
             Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == UserValidator.PhoneIsRequiredErrorMessage));
+        }
+
+        [Fact]
+        public void ItMustValidateValidEmail()
+        {   
+            var exception = Record.Exception(() => UserValidator.Execute("some-name", "some-email", "some-address", null));
+            Assert.IsType<UserValidationException>(exception);
+            Assert.Equal(true, ((UserValidationException)exception).Errors.Any(error => error == UserValidator.EmailIsInvalidErrorMessage));
         }
     }
 }
