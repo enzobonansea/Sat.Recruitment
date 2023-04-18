@@ -27,7 +27,9 @@ namespace Sat.Recruitment.Api.Infrastructure
 
         public Task SaveAsync(User user)
         {
-            // Add the persistence logic here
+            var userRow = $"{user.Name},{user.Email},{user.Phone},{user.Address},{user.UserType},{user.Money}" + Environment.NewLine;
+            System.IO.File.AppendAllText(this.filePath, userRow);
+            
             return Task.CompletedTask;
         }
 
@@ -40,6 +42,7 @@ namespace Sat.Recruitment.Api.Infrastructure
             while (reader.Peek() >= 0)
             {
                 var line = await reader.ReadLineAsync();
+                Console.WriteLine(line);
                 var user = new User(
                     name: line.Split(',')[0].ToString(),
                     email: line.Split(',')[1].ToString(),

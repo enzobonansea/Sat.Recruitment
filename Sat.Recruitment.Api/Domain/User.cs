@@ -8,13 +8,14 @@ namespace Sat.Recruitment.Api.Domain
     {
         private readonly decimal money;
         private readonly Email email;
+        private readonly UserType userType;
 
         public string Name { get; private set; }
         public string Email { get => this.email.Normalize(); }
         public string Address { get; private set; }
         public string Phone { get; private set; }
-        public UserType UserType { get; private set; }
-        public decimal Money { get => this.UserType.GetMoney(this.money); }
+        public string UserType { get => this.userType.GetType().Name; }
+        public decimal Money { get => this.userType.GetMoney(this.money); }
 
         public User(string name, string email, string address, string phone, string userType, decimal money)
         { 
@@ -23,9 +24,9 @@ namespace Sat.Recruitment.Api.Domain
             this.Name = name;
             this.Address = address;
             this.Phone = phone;
-            this.UserType = UserTypeFactory.Create(userType);
             this.money = money;
             this.email = new Email(email);
+            this.userType = UserTypeFactory.Create(userType);
         }
 
         public bool IsDuplicated(User anotherUser) 
