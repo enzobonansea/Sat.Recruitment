@@ -42,7 +42,6 @@ namespace Sat.Recruitment.Api.Infrastructure
             while (reader.Peek() >= 0)
             {
                 var line = await reader.ReadLineAsync();
-                Console.WriteLine(line);
                 var user = new User(
                     name: line.Split(',')[0].ToString(),
                     email: line.Split(',')[1].ToString(),
