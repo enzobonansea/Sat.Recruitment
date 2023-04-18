@@ -11,6 +11,13 @@ namespace Sat.Recruitment.Api.Infrastructure
 {
     public class FileUsersRepository : IUsersRepository
     {
+        private readonly string filePath;
+
+        public FileUsersRepository()
+        {
+            this.filePath = Directory.GetCurrentDirectory() + "/Files/Users.txt";
+        }
+
         public async Task<bool> ExistsAsync(User aUser)
         {
             var allUsers = await this.GetAllAsync();
@@ -28,7 +35,8 @@ namespace Sat.Recruitment.Api.Infrastructure
         {
             var users = new List<User>();
 
-            var reader = ReadUsersFromFile();
+            using var fileStream = new FileStream(this.filePath, FileMode.Open);
+            using var reader = new StreamReader(fileStream);
             while (reader.Peek() >= 0)
             {
                 var line = await reader.ReadLineAsync();
@@ -44,15 +52,6 @@ namespace Sat.Recruitment.Api.Infrastructure
             reader.Close();
 
             return users;
-        }
-
-        private StreamReader ReadUsersFromFile()
-        {
-            var path = Directory.GetCurrentDirectory() + "/Files/Users.txt";
-            var fileStream = new FileStream(path, FileMode.Open);
-            var reader = new StreamReader(fileStream);
-
-            return reader;
         }
     }
 }
